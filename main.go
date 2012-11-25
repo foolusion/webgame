@@ -39,15 +39,15 @@ type socket struct {
 
 func socketHandler(ws *websocket.Conn) {
 	s := socket{ws, make(chan bool)}
-	go func(s socket){
+	go func(s socket) {
 		ticker := time.NewTicker(time.Second)
 		finished := time.After(time.Second * 5)
 		for {
 			select {
-				case <-finished:
-					s.done <- true
-				case <-ticker.C:
-					fmt.Fprint(s, "hey")
+			case <-finished:
+				s.done <- true
+			case <-ticker.C:
+				fmt.Fprint(s, "hey")
 			}
 		}
 	}(s)
