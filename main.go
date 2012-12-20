@@ -19,6 +19,7 @@ func main() {
 	http.HandleFunc("/", rootHandler)
 	http.Handle("/socket", websocket.Handler(socketHandler))
 	http.Handle("/scripts/", http.FileServer(http.Dir("")))
+	http.Handle("/images/", http.FileServer(http.Dir("")))
 	http.Handle("/favicon.ico", http.FileServer(http.Dir("/images")))
 	err := http.ListenAndServe(listenAddr, nil)
 	if err != nil {
